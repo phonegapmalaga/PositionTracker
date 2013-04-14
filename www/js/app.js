@@ -2,6 +2,7 @@ $.when(pgReady, jqmReady).then(function() {
 
     // variables
     var trackingData = [],
+    trackID,
     watchId = null,
     networkStatus = null,
 
@@ -24,15 +25,32 @@ $.when(pgReady, jqmReady).then(function() {
                 .button("refresh");
             console.log("app :: connected");
         }
+    },
+
+    startTrackingPosition = function() {
+        console.log("app :: start tracking position tapped");
+        watchId = navigator.geolocation.watchPosition(
+            function(position) {
+                trackingData.push(position);
+                console.log(position);
+            },
+            function(error) {
+                console.log(error);
+            },
+            { frequency: 3000, enableHighAccuray: true}
+        );
+
+        trackID = $("#id-name").val();
+        $("#tracking-field").hide();
+        $("#tracking-status").html(
+                "Tracking workout: <strong>" + trackID + "</strong>")
     };
 
     // bindings
     
-
-
     $("#about").on("pageshow", checkNetworkStatus);
     $(document).on("online", checkNetworkStatus);
     $(document).on("offline", checkNetworkStatus);
-
+    $("#start-button").on("tap", startTrackingPosition);
 });
 
