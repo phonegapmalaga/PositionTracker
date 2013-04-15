@@ -83,6 +83,34 @@
 </div>
 <!-- end history page -->
 
+<!-- track details page -->
+<div data-role="page" id="info" data-add-back-btn="true">
+    <div data-role="header">
+       <h1>Track Info</h1>
+    </div>
+
+    <div data-role="content">
+        <p id="track-details"></p>
+        <div id="map" 
+        style="position:absolute;bottom:0;left:0;width:100%;height:300px;">
+       </div> 
+    </div>
+
+    <div data-role="footer" data-position="fixed">
+       <div data-role="navbar">
+          <ul>
+              <li><a href="#tracking" data-transition="none"
+                  data-icon="plus">Track</a></li>
+              <li><a href="#history" data-transition="none" data-icon="star" 
+                  class="ui-btn-active ui-state-persist" >History</a></li>
+              <li><a href="#about" data-transition="none" data-icon="info">
+                  About</a></li>
+          </ul>
+       </div> 
+    </div>
+</div>   
+<!-- end track details page -->
+
 <!-- about page -->    
 <div data-role="page" id="about">
     <div data-role="header">

@@ -79,12 +79,29 @@ $.when(pgReady, jqmReady).then(function() {
                         + window.localStorage.key(i) + "</a></li>")
         }
         $("#history-list").listview("refresh");
+    },
+
+    trackTapped = function() {
+        console.log("app :: track tapped");
+        $("#info").attr("track-id", $(this).text());
+    },
+
+    getTrackDetails = function() {
+        console.log("app :: info page loaded and the key is");
+        var key = $(this).attr("track-id");
+        $("#info div[data-role=header] h1").text(key);
+        var data = window.localStorage.getItem(key);
+        data = JSON.parse(data);
+
+        console.log(data);
     };
 
     // bindings
     
     $("#about").on("pageshow", checkNetworkStatus);
     $("#history").on("pageshow", updateTrackList);
+    $("#info").on("pageshow", getTrackDetails);
+
     $(document).on("online", checkNetworkStatus);
     $(document).on("offline", checkNetworkStatus);
 
@@ -92,5 +109,7 @@ $.when(pgReady, jqmReady).then(function() {
     $("#stop-button").on("tap", stopTrackingPosition);
     $("#clear-button").on("tap", clearLocalData);
     $("#load-data-button").on("tap", loadSampleData);
+
+    $("#history").on("tap", "li a", trackTapped);
 });
 
