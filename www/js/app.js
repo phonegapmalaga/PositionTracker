@@ -87,13 +87,23 @@ $.when(pgReady, jqmReady).then(function() {
     },
 
     getTrackDetails = function() {
-        console.log("app :: info page loaded and the key is");
         var key = $(this).attr("track-id");
         $("#info div[data-role=header] h1").text(key);
         var data = window.localStorage.getItem(key);
         data = JSON.parse(data);
-
         console.log(data);
+
+        // initial lat and long
+        var myLatLng = new google.maps.LatLng(data[0].coords.latitude,
+                data[0].coords.longitude);
+        var options = {
+            zoom: 15,
+            center: myLatLng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById("map"), 
+                options)
     };
 
     // bindings
