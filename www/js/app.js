@@ -103,7 +103,22 @@ $.when(pgReady, jqmReady).then(function() {
         };
 
         var map = new google.maps.Map(document.getElementById("map"), 
-                options)
+                options);
+
+        var trackCoords = [];
+        for (i=0; i<data.length; i++) {
+            console.log(data[i].coords);
+            trackCoords.push(new google.maps.LatLng(data[i].coords.latitude, 
+                        data[i].coords.longitude));
+
+            var trackPath = new google.maps.Polyline({
+                path: trackCoords,
+                strokeColor: "#FF000",
+                strokeOpacity: "1.0",
+                strokeWeight: 2
+            });
+            trackPath.setMap(map);
+        }
     };
 
     // bindings
